@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { cpus } from 'os';
-import { resolve } from 'dns';
-import { rejects } from 'assert';
 
 @Component({
   selector: 'app-root',
