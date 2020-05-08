@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppareilService } from "./services/appareil.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isAuth = false;
   lastUpdate = new Promise((resolve, reject) => {
     const date = new Date();
@@ -15,22 +16,9 @@ export class AppComponent {
       }, 2000
     );
   })
-  appareils = [
-    {
-      name : 'Machine à laver',
-      status : 'éteint' 
-    },
-    {
-      name : 'Frigo',
-      status : 'éteint' 
-    },
-    {
-      name : 'Ordinateur',
-      status : 'allumé' 
-    }
-  ];
+  appareils: any[];
 
-  constructor() {
+  constructor(private appareilService: AppareilService) {
     setTimeout(
       () => {
         this.isAuth = true;
@@ -38,13 +26,23 @@ export class AppComponent {
     );
   }
 
-  onAllumer() {
+  ngOnInit() {
+    this.appareils = this.appareilService.appareils;
+  }
+
+  onAllumer() {  
+    this.appareilService.switchOnAll();
     console.log('On allume tout !');
-    //const it = this.appareils.entries;
-    for (let obj of this.appareils.entries()) {
-      obj[1].status = 'allumé';
-      console.log(obj);
+  }
+  
+  onEteindre() {
+    if(confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
+      this.appareilService.switchOffAll();
+      console.log('On éteint tout !');
+    } else {
+      return null;
     }
   } 
+  
 }
 

@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { FirstCpComponent } from './first-cp/first-cp.component';
 import { AppareilComponent } from './appareil/appareil.component';
 import { FormsModule } from '@angular/forms';
+import { AppareilService } from "./services/appareil.service";
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AppareilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
